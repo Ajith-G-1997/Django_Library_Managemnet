@@ -1,0 +1,28 @@
+{% extends 'library/index.html' %}
+{% block title %}{{ book.pk|default:"Add New Book" }}{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{% if book.pk %}Edit Book{% else %}Add New Book{% endif %}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if book.pk %}Update{% else %}Add{% endif %}
+                </button>
+                <a href="{% url 'book_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

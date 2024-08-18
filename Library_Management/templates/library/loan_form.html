@@ -1,0 +1,28 @@
+{% extends 'library/index.html' %}
+{% block title %}{{ loan.pk|default:"Add New Loan" }}{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{% if loan.pk %}Edit Loan{% else %}Add New Loan{% endif %}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if loan.pk %}Update{% else %}Add{% endif %}
+                </button>
+                <a href="{% url 'loan_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

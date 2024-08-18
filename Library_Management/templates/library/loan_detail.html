@@ -1,0 +1,26 @@
+{% extends 'library/index.html' %}
+{% block title %}Loan Details{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ loan.book.title }}</h1>
+            <h5 class="card-subtitle mb-2 text-muted">Borrowed by {{ loan.member.first_name }}</h5>
+            <p class="card-text"><strong>Loan Date:</strong> {{ loan.loan_date }}</p>
+            <p class="card-text">
+                <strong>Return Date:</strong> 
+                {% if loan.return_date %}
+                    {{ loan.return_date }}
+                {% else %}
+                    <span class="text-danger">Not returned yet</span>
+                {% endif %}
+            </p>
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'loan_edit' loan.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'loan_delete' loan.pk %}" class="btn btn-danger">Delete</a>
+            </div>
+            <a href="{% url 'loan_list' %}" class="btn btn-secondary mt-3">Back to Loan List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
